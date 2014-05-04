@@ -37,7 +37,6 @@ $sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "
 	`time_stacked` int(11) NOT NULL DEFAULT '0',
 	`time_sended` int(11) DEFAULT '0',
 	`listsended` mediumtext,
-	`totalsended` int(4) DEFAULT '0',
 	`status` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`))ENGINE=MyISAM";
 
@@ -62,7 +61,6 @@ $sql_create_module[] = "INSERT INTO `" . $db_config['prefix'] . "_" . $lang . "_
 
 $result = $db->sql_query( "SHOW COLUMNS FROM `" . NV_CRONJOBS_GLOBALTABLE . "`" );
 $list_field = array();
-$list_value_send_stack = array();
 $list_value_send_mail = array();
 
 while ( $row = $db->sql_fetch_assoc( $result ) )
@@ -70,18 +68,15 @@ while ( $row = $db->sql_fetch_assoc( $result ) )
 	if ( preg_match( "/^([a-zA-Z0-9]{2})\_cron_name$/", $row['Field'] ) )
 	{
 		$list_field[] = $row['Field'];
-		$list_value_send_stack[] = "'News notice to stack'";
 		$list_value_send_mail[] = "'News notice to mail'";
 	}
 }
 
 $list_field = ", `" . implode( "`, `", $list_field ) . "`";
-$list_value_send_stack = ", " . implode( ", ", $list_value_send_stack );
 $list_value_send_mail = ", " . implode( ", ", $list_value_send_mail );
 $interval = 120;
 $interval_sendmail = $interval + 10; 
 
-$sql_create_module[] = "INSERT INTO `" . NV_CRONJOBS_GLOBALTABLE . "` ( `id`, `start_time`, `interval`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result` " . $list_field . " ) VALUES ( NULL, " . NV_CURRENTTIME . ", " . $interval . ", 'nv_newsnotice_auto_sendmail.php', 'cron_newsnotice_send_mail', 'newsnotice, " . $lang . "_news_rows', 0, 0, 1, " . NV_CURRENTTIME . ", 1 " . $list_value_send_stack . " )";
-$sql_create_module[] = "INSERT INTO `" . NV_CRONJOBS_GLOBALTABLE . "` ( `id`, `start_time`, `interval`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result` " . $list_field . " ) VALUES ( NULL, " . NV_CURRENTTIME . ", " . $interval_sendmail . ", 'nv_newsnotice_auto_sendmail.php', 'cron_newsnotice_start_send_mail', 'newsnotice, " . $lang . "_news_rows', 0, 0, 1, " . NV_CURRENTTIME . ", 1 " . $list_value_send_mail . " )";
+$sql_create_module[] = "INSERT INTO `" . NV_CRONJOBS_GLOBALTABLE . "` ( `id`, `start_time`, `interval`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result` " . $list_field . " ) VALUES ( NULL, " . NV_CURRENTTIME . ", " . $interval . ", 'nv_newsnotice_auto_sendmail.php', 'cron_newsnotice_send_mail', 'newsnotice, " . $lang . "_news_rows', 0, 0, 1, " . NV_CURRENTTIME . ", 1 " . $list_value_send_mail . " )";
 
 ?>

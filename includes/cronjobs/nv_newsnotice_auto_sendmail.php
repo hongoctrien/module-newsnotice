@@ -40,7 +40,7 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 
 	if( ! empty( $tablenews ) and $nv_module_config['active'] )
 	{	
-		$sql = "SELECT SQL_CALC_FOUND_ROWS `id` FROM `" . $tablenews . "` WHERE `status`= 1 AND `publtime` >= " . $time_stacked . " AND `publtime` <= " . NV_CURRENTTIME . " ORDER BY `publtime` DESC";
+		$sql = "SELECT SQL_CALC_FOUND_ROWS `id` FROM `" . $tablenews . "` WHERE `status`= 1 AND `publtime` > " . $time_stacked . " AND `publtime` <= " . NV_CURRENTTIME . " ORDER BY `publtime` DESC";
 		$result = $db->sql_query( $sql );
 		$numrows = $db->sql_numrows( $result );
 
@@ -61,6 +61,10 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 			{
 				$check = false;
 			}
+			else
+			{
+				$check = cron_newsnotice_start_send_mail( $module, $tablenews );
+			}
 		}
 	}
 	else
@@ -74,8 +78,6 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 function cron_newsnotice_start_send_mail( $module, $tablenews )
 {
 	global $global_config, $db_config, $db;
-	
-	$tablenews = $db_config['prefix'] . "_" . $tablenews;
 	
     $sql = "SELECT `config_name`, `config_value` FROM `" . NV_PREFIXLANG . "_" . $module . "_config`";
     $list = nv_db_cache( $sql, $module );
@@ -96,7 +98,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 		$result_send = $db->sql_query( $sql_send );
 		
 		include ( NV_ROOTDIR . "/modules/" . $module . "/language/" . NV_LANG_INTERFACE . ".php" );
-
+				
 		while( list( $id, $listid ) = $db->sql_fetchrow( $result_send ) )
 		{
 			if( ! empty( $listid ) )
@@ -134,7 +136,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 					}
 				}
 				
-				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `time_sended` = " . NV_CURRENTTIME . ", `totalsended` = " . $nummail . ", `status` = 1 WHERE `id` = " . $id;
+				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `time_sended` = " . NV_CURRENTTIME . ", `status` = 1 WHERE `id` = " . $id;
 				$db->sql_query( $update );
 			}
 		}
