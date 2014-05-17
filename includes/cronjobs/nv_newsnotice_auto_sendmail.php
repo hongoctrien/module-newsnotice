@@ -18,7 +18,7 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 	$check = true;
 	$tablenews = $db_config['prefix'] . "_" . $tablenews;
 	
-	list( $time ) = $db->sql_fetchrow( $db->sql_query( "SELECT `time_stacked` FROM `" . NV_PREFIXLANG . "_" . $module . "` ORDER BY `id` DESC LIMIT 0,1 " ) );
+	list( $time ) = $db->sql_fetchrow( $db->sql_query( "SELECT `time_send` FROM `" . NV_PREFIXLANG . "_" . $module . "` ORDER BY `id` DESC LIMIT 0,1 " ) );
 	
 	if( $time )
 	{
@@ -40,7 +40,7 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 
 	if( ! empty( $tablenews ) and $nv_module_config['active'] )
 	{	
-		$sql = "SELECT SQL_CALC_FOUND_ROWS `id` FROM `" . $tablenews . "` WHERE `status`= 1 AND `publtime` >= " . $time_stacked . " AND `publtime` <= " . NV_CURRENTTIME . " ORDER BY `publtime` DESC";
+		$sql = "SELECT SQL_CALC_FOUND_ROWS `id` FROM `" . $tablenews . "` WHERE `status`= 1 AND `publtime` > " . $time_stacked . " AND `publtime` <= " . NV_CURRENTTIME . " ORDER BY `publtime` DESC";
 		$result = $db->sql_query( $sql );
 		$numrows = $db->sql_numrows( $result );
 
@@ -54,12 +54,12 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 			
 			$lid = implode( ",", $listid );
 			
-			$sql = "INSERT INTO `" . NV_PREFIXLANG . "_" . $module . "`( `id`, `listid`, `time_stacked`, `totalsended`, `status` ) VALUES ( NULL, " . $db->dbescape( $lid ) . ", " . NV_CURRENTTIME . ", 0, 0)";
+			$sql = "INSERT INTO `" . NV_PREFIXLANG . "_" . $module . "`( `id`, `listid`, `time_send`, `status` ) VALUES ( NULL, " . $db->dbescape( $lid ) . ", " . NV_CURRENTTIME . ", 0)";
 			$id_insert = $db->sql_query_insert_id( $sql );
 			
-			if( $id_insert == 0 )
+			if( $id_insert != 0 )
 			{
-				$check = false;
+				$check = cron_newsnotice_start_send_mail( $module, $tablenews );
 			}
 		}
 	}
@@ -75,7 +75,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 {
 	global $global_config, $db_config, $db;
 	
-	$tablenews = $db_config['prefix'] . "_" . $tablenews;
+	$nv_config_module = GetConfigValue();
 	
     $sql = "SELECT `config_name`, `config_value` FROM `" . NV_PREFIXLANG . "_" . $module . "_config`";
     $list = nv_db_cache( $sql, $module );
@@ -96,7 +96,8 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 		$result_send = $db->sql_query( $sql_send );
 		
 		include ( NV_ROOTDIR . "/modules/" . $module . "/language/" . NV_LANG_INTERFACE . ".php" );
-
+		$title = '';
+				
 		while( list( $id, $listid ) = $db->sql_fetchrow( $result_send ) )
 		{
 			if( ! empty( $listid ) )
@@ -108,7 +109,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 					if( $count == 20 )
 					{
 						$count = 0;
-						sleep(2); //Nghi 2 giay roi gui tiep
+						sleep( 5 ); //Nghi 5 giay roi gui tiep
 					}
 					else 
 					{
@@ -116,6 +117,11 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 						list( $key ) = $db->sql_fetchrow( $result_key );
 				
 						$cancellink = $global_config['site_url'] . "/index.php?" . NV_NAME_VARIABLE . "=" . $module . "&amp;" . NV_OP_VARIABLE . "=main&status=cancel&email=" . $mail['email'] . "&key=" . $key;
+						
+						$result = $db->sql_query( "SELECT `title` FROM `" . $tablenews . "` WHERE `id` = " . $listid );
+						list( $title ) = $db->sql_fetchrow( $result );
+						
+						$title = empty( $title ) ? $nv_config_module['title_email'] : $title;
 						
 						$content = "<div style='line-height: 25px'>";
 						$content .= sprintf( $lang_module['sendmail_content_new_post'], $mail['email'], $global_config['site_name'], $global_config['site_url'] );
@@ -126,7 +132,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 						$content .= "<em>" . sprintf( $lang_module['sendmail_content_note'], $global_config['site_name'], $global_config['site_url'], $cancellink ) . "</em>";
 						$content .= '</div>';
 						
-						if( nv_sendmail( array( $global_config['site_name'], $global_config['site_email'] ), $mail['email'], $nv_module_config['title_email'], $content ) )
+						if( nv_sendmail( array( $global_config['site_name'], $global_config['site_email'] ), $mail['email'], $title, $content ) )
 						{
 							$listidmail[] = $mail['id'];
 						}
@@ -134,7 +140,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 					}
 				}
 				
-				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `time_sended` = " . NV_CURRENTTIME . ", `totalsended` = " . $nummail . ", `status` = 1 WHERE `id` = " . $id;
+				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `status` = 1 WHERE `id` = " . $id;
 				$db->sql_query( $update );
 			}
 		}

@@ -53,8 +53,8 @@ while( $row = $db->sql_fetchrow( $result ) )
 	}
 	
 	$row['countsended'] = count( $listsended );
-	$row['status'] = $row['status'] ? $lang_module['status_completed'] : $lang_module['status_stack'];
-	$row['time_sended'] = ! $row['time_sended'] ? 'N/A' : nv_date( 'd/m/Y H:i', $row['time_sended'] );
+	$row['status'] = $row['status'] ? $lang_module['status_completed'] .' ('. $row['countsended'] . ')' : $lang_module['status_stack'];
+	$row['time_send'] = ! $row['time_send'] ? 'N/A' : nv_date( 'd/m/Y H:i', $row['time_send'] );
 	$xtpl->assign( 'DATA', $row );
 	$xtpl->parse( 'main.loop' );
 }
