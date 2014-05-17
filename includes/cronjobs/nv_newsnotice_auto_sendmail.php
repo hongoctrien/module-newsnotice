@@ -18,7 +18,7 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 	$check = true;
 	$tablenews = $db_config['prefix'] . "_" . $tablenews;
 	
-	list( $time ) = $db->sql_fetchrow( $db->sql_query( "SELECT `time_stacked` FROM `" . NV_PREFIXLANG . "_" . $module . "` ORDER BY `id` DESC LIMIT 0,1 " ) );
+	list( $time ) = $db->sql_fetchrow( $db->sql_query( "SELECT `time_send` FROM `" . NV_PREFIXLANG . "_" . $module . "` ORDER BY `id` DESC LIMIT 0,1 " ) );
 	
 	if( $time )
 	{
@@ -54,14 +54,10 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 			
 			$lid = implode( ",", $listid );
 			
-			$sql = "INSERT INTO `" . NV_PREFIXLANG . "_" . $module . "`( `id`, `listid`, `time_stacked`, `totalsended`, `status` ) VALUES ( NULL, " . $db->dbescape( $lid ) . ", " . NV_CURRENTTIME . ", 0, 0)";
+			$sql = "INSERT INTO `" . NV_PREFIXLANG . "_" . $module . "`( `id`, `listid`, `status` ) VALUES ( NULL, " . $db->dbescape( $lid ) . ", 0)";
 			$id_insert = $db->sql_query_insert_id( $sql );
 			
-			if( $id_insert == 0 )
-			{
-				$check = false;
-			}
-			else
+			if( $id_insert != 0 )
 			{
 				$check = cron_newsnotice_start_send_mail( $module, $tablenews );
 			}
@@ -136,7 +132,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 					}
 				}
 				
-				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `time_sended` = " . NV_CURRENTTIME . ", `status` = 1 WHERE `id` = " . $id;
+				$update = "UPDATE `" . NV_PREFIXLANG . "_" . $module . "` SET `listsended` = " . $db->dbescape_string( implode( ",", $listidmail ) ) . ", `time_send` = " . NV_CURRENTTIME . ", `status` = 1 WHERE `id` = " . $id;
 				$db->sql_query( $update );
 			}
 		}

@@ -34,8 +34,7 @@ $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "` (
 	`id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
 	`listid` varchar(30) NOT NULL,
-	`time_stacked` int(11) NOT NULL DEFAULT '0',
-	`time_sended` int(11) DEFAULT '0',
+	`time_send` int(11) DEFAULT '0',
 	`listsended` mediumtext,
 	`status` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`))ENGINE=MyISAM";
