@@ -59,7 +59,7 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 			
 			if( $id_insert != 0 )
 			{
-				$check = cron_newsnotice_start_send_mail( $module, $tablenews );
+				$check = cron_newsnotice_start_send_mail( $module, $tablenews, $nv_module_config['title_email'] );
 			}
 		}
 	}
@@ -71,20 +71,9 @@ function cron_newsnotice_send_mail( $module, $tablenews )
 	return $check;
 }
 
-function cron_newsnotice_start_send_mail( $module, $tablenews )
+function cron_newsnotice_start_send_mail( $module, $tablenews, $title_mail )
 {
 	global $global_config, $db_config, $db;
-	
-	$nv_config_module = GetConfigValue();
-	
-    $sql = "SELECT `config_name`, `config_value` FROM `" . NV_PREFIXLANG . "_" . $module . "_config`";
-    $list = nv_db_cache( $sql, $module );
-    
-    $nv_module_config = array();
-    foreach ( $list as $values )
-    {
-        $nv_module_config[$values['config_name']] = $values['config_value'];
-    }
 	
 	$sql_email = "SELECT `id`, `email` FROM `" . NV_PREFIXLANG . "_" . $module . "_emaillist` WHERE `status` = 1";
 	$result_email = $db->sql_query( $sql_email );
@@ -121,7 +110,7 @@ function cron_newsnotice_start_send_mail( $module, $tablenews )
 						$result = $db->sql_query( "SELECT `title` FROM `" . $tablenews . "` WHERE `id` = " . $listid );
 						list( $title ) = $db->sql_fetchrow( $result );
 						
-						$title = empty( $title ) ? $nv_config_module['title_email'] : $title;
+						$title = empty( $title ) ? $title_mail : $title;
 						
 						$content = "<div style='line-height: 25px'>";
 						$content .= sprintf( $lang_module['sendmail_content_new_post'], $mail['email'], $global_config['site_name'], $global_config['site_url'] );
