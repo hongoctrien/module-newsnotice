@@ -4,7 +4,7 @@
 		<tbody>
 			<tr>
 				<td width="150">{LANG.system_active}</td>
-				<td><input name="active" type="checkbox" value="1" {CHECKED} /></td>
+				<td><input name="active" type="checkbox" value="1" {CHECKED_ACTIVE} /></td>
 			</tr>
 		</tbody>
 		

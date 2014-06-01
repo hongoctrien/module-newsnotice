@@ -4,7 +4,6 @@
 		<tr>
 			<td width="50" align="center">ID</td>
 			<td>{LANG.listpost}</td>
-			<td width="150">{LANG.sended}</td>
 			<td width="150">{LANG.status}</td>
 			<td width="120">{LANG.time_sended}</td>
 			<td width="50"></td>
@@ -22,9 +21,8 @@
 				<!-- END: listpost -->
 				</ul>
 			</td>
-			<td>{DATA.totalsended} / {DATA.countsended}</td>
 			<td>{DATA.status}</td>
-			<td>{DATA.time_sended}</td>
+			<td>{DATA.time_send}</td>
 			<td align="center"><span class="delete_icon"><a href="javascript:void(0);" onclick="nv_module_del_stack({DATA.id});">{GLANG.delete}</a></span></td>
 		</tr>
 	</tbody>
