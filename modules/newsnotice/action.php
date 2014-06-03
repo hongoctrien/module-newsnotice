@@ -11,6 +11,7 @@ if ( ! defined( 'NV_IS_FILE_MODULES' ) ) die( 'Stop!!!' );
 
 $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "`";
+$sql_drop_module[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_messages`";
 $sql_drop_module[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_emaillist`";
 $sql_drop_module[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config`";
 
@@ -38,6 +39,16 @@ $sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "
 	`listsended` mediumtext,
 	`status` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`))ENGINE=MyISAM";
+	
+$sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_messages` (
+	`id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+	`title` varchar(255) NOT NULL,
+	`content` text NOT NULL,
+	`type` varchar(255) NOT NULL,
+	`time_send` int(11) DEFAULT '0',
+	`listsended` mediumtext,
+	`status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`))ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_emaillist` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,6 +68,7 @@ $sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "
 $sql_create_module[] = "INSERT INTO `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config` VALUES ('active', '1')";
 $sql_create_module[] = "INSERT INTO `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config` VALUES ('title_email', '')"; // Tieu de email
 $sql_create_module[] = "INSERT INTO `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config` VALUES ('numperpage', '20')";
+$sql_create_module[] = "INSERT INTO `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config` VALUES ('nummail', '10')";
 
 $result = $db->sql_query( "SHOW COLUMNS FROM `" . NV_CRONJOBS_GLOBALTABLE . "`" );
 $list_field = array();

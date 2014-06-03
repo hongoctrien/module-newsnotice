@@ -4,7 +4,7 @@
 		<tbody>
 			<tr>
 				<td width="150">{LANG.system_active}</td>
-				<td><input name="active" type="checkbox" value="1" {CHECKED_ACTIVE} /></td>
+				<td><input name="active" type="checkbox" value="1" {CHECKED} /></td>
 			</tr>
 		</tbody>
 		
@@ -19,6 +19,13 @@
 			<tr>
 				<td>{LANG.numperpage}</td>
 				<td><input type="text" name="numperpage" value="{DATA.numperpage}" /></td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td>{LANG.nummail}</td>
+				<td><input type="text" name="nummail" value="{DATA.nummail}" /></td>
 			</tr>
 		</tbody>
 		

@@ -24,11 +24,7 @@ if( $nv_Request->isset_request( 'save', 'post') )
 	$array_config['active'] = $nv_Request->get_bool( 'active', 'post', 0 );
 	$array_config['title_email'] = $nv_Request->get_string( 'title_email', 'post', '' );
 	$array_config['numperpage'] = $nv_Request->get_int( 'numperpage', 'post', 20 );
-	
-	if( ! is_integer( $array_config['numperpage'] ) )
-	{
-		$error = $lang_module['error_numperpage_type'];
-	}
+	$array_config['nummail'] = $nv_Request->get_int( 'nummail', 'post', 20 );
 	
 	if( empty( $error) )
 	{
