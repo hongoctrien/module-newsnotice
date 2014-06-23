@@ -9,10 +9,11 @@
 
 if ( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) ) die( 'Stop!!!' );
 
+$submenu['messages'] = $lang_module['messages'];
 $submenu['maillist'] = $lang_module['maillist'];
 $submenu['config'] = $lang_module['config'];
 
-$allow_func = array( 'main', 'maillist', 'config', 'change_status', 'delete', 'del_stack' );
+$allow_func = array( 'main', 'maillist', 'messages', 'messages_send', 'messages_sending', 'config', 'change_status', 'delete', 'del_stack' );
 
 define( 'NV_IS_FILE_ADMIN', true );
 
