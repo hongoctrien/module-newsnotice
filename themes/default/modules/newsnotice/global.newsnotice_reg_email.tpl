@@ -12,10 +12,10 @@
 			if (email == '') {
 				alert('{LANG.error_email_empty}');
 				$('#{MODULE_NAME}_email').focus();
-			}else if (nv_email_check('{MODULE_NAME}_email')) {
+			} else if (!nv_email_check(document.getElementById('{MODULE_NAME}_email'))) {
 				alert('{LANG.error_email_type}');
 				$('#{MODULE_NAME}_email').focus();
-			}else{
+			} else {
 				$.ajax({
 					type : "get",
 					url : '{NV_BASE_SITEURL}' + 'index.php?' + '{NV_NAME_VARIABLE}=newsnotice&{NV_OP_VARIABLE}=checkmail',

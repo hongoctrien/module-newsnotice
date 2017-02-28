@@ -16,10 +16,9 @@ $xtpl = new XTemplate("main.tpl", NV_ROOTDIR . "/themes/" . $global_config['modu
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('GLANG', $lang_global);
 
-$nv_config_module = GetConfigValue();
 $base_url = NV_BASE_ADMINURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&" . NV_NAME_VARIABLE . "=" . $module_name;
 $page = $nv_Request->get_int('page', 'get', 1);
-$per_page = $nv_config_module['numperpage'];
+$per_page = $array_config['numperpage'];
 
 // Get num row
 $sql = "SELECT COUNT(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "";

@@ -11,11 +11,8 @@ if (! defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
 $page_title = $lang_module['maillist'];
-
-$nv_config_module = GetConfigValue();
-
 $page = $nv_Request->get_int('page', 'get', 0);
-$per_page = $nv_config_module['numperpage'];
+$per_page = $array_config['numperpage'];
 
 if ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');

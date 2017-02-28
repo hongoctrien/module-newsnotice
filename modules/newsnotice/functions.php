@@ -11,3 +11,11 @@ if (! defined('NV_SYSTEM'))
     die('Stop!!!');
 
 define('NV_IS_MOD_NEWSNOTICE', true);
+
+$array_config = array();
+$sql = "SELECT config_name, config_value FROM " . NV_PREFIXLANG . "_" . $module_data . "_config";
+$list = $nv_Cache->db($sql, '', $module_name);
+
+foreach ($list as $values) {
+    $array_config[$values['config_name']] = $values['config_value'];
+}

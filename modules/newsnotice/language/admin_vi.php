@@ -39,6 +39,8 @@ $lang_module['system'] = "Hệ thống";
 $lang_module['save'] = "Lưu lại";
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['perform'] = 'Thực hiện';
+$lang_module['active_required'] = 'Kích hoạt qua Email';
+$lang_module['active_required_note'] = 'Khách hàng phải kích hoạt qua email sau khi đăng ký';
 
 $lang_module['sendmail_title_status'] = "Trạng thái email nhận tin của bạn bị thay đổi";
 $lang_module['sendmail_content_status_deactive'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã bị đình chỉ hoạt động bởi người quản trị. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.';

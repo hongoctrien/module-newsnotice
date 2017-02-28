@@ -11,40 +11,40 @@ if (! defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
 $page_title = $lang_module['config'];
-
-$xtpl = new XTemplate("config.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('NV_BASE_ADMINURL', NV_BASE_ADMINURL);
-$xtpl->assign('NV_NAME_VARIABLE', NV_NAME_VARIABLE);
-$xtpl->assign('ACTION', NV_BASE_ADMINURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&amp;" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=config");
-
 $error = '';
 
 if ($nv_Request->isset_request('save', 'post')) {
     $array_config['active'] = $nv_Request->get_bool('active', 'post', 0);
     $array_config['title_email'] = $nv_Request->get_string('title_email', 'post', '');
     $array_config['numperpage'] = $nv_Request->get_int('numperpage', 'post', 20);
-    
+    $array_config['active_required'] = $nv_Request->get_int('active_required', 'post', 0);
+
     if (! is_integer($array_config['numperpage'])) {
         $error = $lang_module['error_numperpage_type'];
     }
-    
+
     if (empty($error)) {
+        $sth = $db->prepare("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value = :config_value WHERE config_name = :config_name");
         foreach ($array_config as $config_name => $config_value) {
-            $query = "REPLACE INTO " . NV_PREFIXLANG . "_" . $module_data . "_config VALUES (" . $db->quote($config_name) . "," . $db->quote($config_value) . ")";
-            $db->query($query);
+            $sth->bindParam(':config_name', $config_name, PDO::PARAM_STR);
+            $sth->bindParam(':config_value', $config_value, PDO::PARAM_STR);
+            $sth->execute();
         }
-        
+
         $nv_Cache->delMod($module_name);
-        
+
         Header("Location: " . NV_BASE_ADMINURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&" . NV_NAME_VARIABLE . "=" . $module_name . "&" . NV_OP_VARIABLE . "=config");
         die();
     }
 }
 
-$nv_config = GetConfigValue();
-$xtpl->assign('CHECKED', $nv_config['active'] ? 'checked="checked"' : '');
-$xtpl->assign('DATA', $nv_config);
+$array_config['ck_active'] = $array_config['active'] ? 'checked="checked"' : '';
+$array_config['ck_active_required'] = $array_config['active_required'] ? 'checked="checked"' : '';
+
+$xtpl = new XTemplate("config.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('ACTION', NV_BASE_ADMINURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&amp;" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=config");
+$xtpl->assign('DATA', $array_config);
 $xtpl->assign('EROR', $error);
 
 $xtpl->parse('main');

@@ -2,11 +2,11 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.com)
-* @Copyright (C) 2014 mynukeviet. All rights reserved
-* @License GNU/GPL version 2 or any later version
-* @Createdate 2-10-2010 18:49
-*/
+ * @Author mynukeviet (contact@mynukeviet.com)
+ * @Copyright (C) 2014 mynukeviet. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 2-10-2010 18:49
+ */
 if (! defined('NV_IS_MOD_NEWSNOTICE'))
     die('Stop!!!');
 
@@ -23,15 +23,24 @@ if ($nv_Request->isset_request('status, email', 'get')) {
             $notice = $lang_module['error_existed_email'];
         } else {
             $key = md5($email . NV_CURRENTTIME);
-            $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_emaillist( email, time_reg, time_active, check_key, status ) VALUES( " . $db->quote($email) . ", " . NV_CURRENTTIME . ", 0, " . $db->quote($key) . ", 0 )";
+            $status = 1;
+            $time_active = NV_CURRENTTIME;
+            if ($array_config['active_required']) {
+                $time_active = $status = 0;
+            }
+            $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_emaillist( email, time_reg, time_active, check_key, status ) VALUES( " . $db->quote($email) . ", " . NV_CURRENTTIME . ", " . $time_active . ", " . $db->quote($key) . ", " . $status . " )";
             if ($db->query($sql)) {
-                $notice = sprintf($lang_module['notice_success_mail_active'], $email);
-                $url = $global_config['site_url'] . "/index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=main&status=done&email=" . $email . "&key=" . $key;
-                $mail_content = sprintf($lang_module['email_content'], $email, $global_config['site_name'], $global_config['site_url'], $url);
-                nv_sendmail(array(
-                    $global_config['site_name'],
-                    $global_config['site_email']
-                ), $email, $lang_module['title_email'], $mail_content);
+                if ($status) {
+                    $notice = $lang_module['notice_success'];
+                } else {
+                    $notice = sprintf($lang_module['notice_success_mail_active'], $email);
+                    $url = $global_config['site_url'] . "/index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=main&status=done&email=" . $email . "&key=" . $key;
+                    $mail_content = sprintf($lang_module['email_content'], $email, $global_config['site_name'], $global_config['site_url'], $url);
+                    nv_sendmail(array(
+                        $global_config['site_name'],
+                        $global_config['site_email']
+                    ), $email, $lang_module['title_email'], $mail_content);
+                }
             } else {
                 $notice = $lang_module['error_success_mail_active'];
             }

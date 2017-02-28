@@ -57,9 +57,15 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 	config_value varchar(255) NOT NULL,
 	UNIQUE KEY config_name (config_name))ENGINE=MyISAM";
 
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('active', '1')";
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('title_email', '')"; // Tieu de email
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('numperpage', '20')";
+$array_config = array(
+    'active' => 1,
+    'title_email' => '',
+    'numperpage' => 20,
+    'active_required' => 1
+);
+foreach($array_config as $config_name => $config_value){
+    $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('" . $config_name . "', '" . $config_value . "')";
+}
 
 $result = $db->query("SHOW COLUMNS FROM " . NV_CRONJOBS_GLOBALTABLE . "");
 $list_field = array();

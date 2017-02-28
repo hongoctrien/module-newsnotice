@@ -10,9 +10,9 @@
 if (! defined('NV_MAINFILE'))
     die('Stop!!!');
 
-$lang_translator['author'] = "VINADES.,JSC (contact@vinades.vn)";
+$lang_translator['author'] = "mynukeviet (contact@mynukeviet.com)";
 $lang_translator['createdate'] = "19/03/2014, 13:32";
-$lang_translator['copyright'] = "@Copyright (C) 2014 VINADES.,JSC. All rights reserved";
+$lang_translator['copyright'] = "@Copyright (C) 2014 mynukeviet. All rights reserved";
 $lang_translator['info'] = "";
 $lang_translator['langtype'] = "lang_module";
 
@@ -26,6 +26,7 @@ $lang_module['error_existed_email'] = "Email này đã được đăng ký";
 $lang_module['error_success_mail_active'] = "Quá trình đăng ký thất bại. Vui lòng liên hệ với người quản trị.";
 
 $lang_module['notice_success_mail_active'] = "Việc đăng ký của bạn đã được ghi nhận. Một email kích hoạt đã được gửi đến <strong>%s</strong>. <br />Vui lòng kiểm tra email và tiến hành xác nhận để hoàn tất quá trình kích hoạt tài khoản.";
+$lang_module['notice_success'] = "Bạn đã đăng ký nhận tin thành công";
 $lang_module['notice_success_done_actived'] = "Việc đăng ký đã hoàn tất. <br />Chúc bạn có một ngày làm việc hiệu quả.";
 $lang_module['notice_success_done_active'] = "Link kích hoạt không chính xác, vui lòng kiểm tra lại!";
 $lang_module['notice_success_done_cancel'] = "Bạn không thể ngưng kích hoạt lúc này!";

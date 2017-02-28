@@ -2,11 +2,11 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.com)
-* @Copyright (C) 2014 mynukeviet. All rights reserved
-* @License GNU/GPL version 2 or any later version
-* @Createdate 2-10-2010 18:49
-*/
+ * @Author mynukeviet (contact@mynukeviet.com)
+ * @Copyright (C) 2014 mynukeviet. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 2-10-2010 18:49
+ */
 if (! defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
@@ -15,7 +15,7 @@ $id = $nv_Request->get_int('id', 'post', 0);
 if (empty($id))
     die('NO_' . $id);
 
-if (nv_delete_email($id)) {
+if (! nv_delete_email($id)) {
     die('NO_' . $id);
 }
 
