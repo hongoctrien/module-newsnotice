@@ -1,36 +1,37 @@
 <?php
 
 /**
- * @Project NUKEVIET 3.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2014 VINADES.,JSC. All rights reserved
- * @Createdate Wed, 19 Mar 2014 13:32:54 GMT
- */
+ * @Project NUKEVIET 4.x
+* @Author mynukeviet (contact@mynukeviet.com)
+* @Copyright (C) 2014 mynukeviet. All rights reserved
+* @License GNU/GPL version 2 or any later version
+* @Createdate 2-10-2010 18:49
+*/
+if (! defined('NV_ADMIN') or ! defined('NV_MAINFILE') or ! defined('NV_IS_MODADMIN'))
+    die('Stop!!!');
+    
+$allow_func = array(
+    'main',
+    'maillist',
+    'config',
+    'change_status',
+    'delete',
+    'del_stack'
+);
 
-if ( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) ) die( 'Stop!!!' );
-
-$submenu['messages'] = $lang_module['messages'];
-$submenu['maillist'] = $lang_module['maillist'];
-$submenu['config'] = $lang_module['config'];
-
-$allow_func = array( 'main', 'maillist', 'messages', 'messages_send', 'messages_sending', 'config', 'change_status', 'delete', 'del_stack' );
-
-define( 'NV_IS_FILE_ADMIN', true );
+define('NV_IS_FILE_ADMIN', true);
 
 function GetConfigValue()
 {
-    global $module_data;
+    global $module_name, $module_data, $nv_Cache;
     
-    $sql = "SELECT `config_name`, `config_value` FROM `" . NV_PREFIXLANG . "_" . $module_data . "_config`";
-    $list = nv_db_cache( $sql );
+    $sql = "SELECT config_name, config_value FROM " . NV_PREFIXLANG . "_" . $module_data . "_config";
+    $list = $nv_Cache->db($sql, '', $module_name);
     
     $array = array();
-    foreach ( $list as $values )
-    {
+    foreach ($list as $values) {
         $array[$values['config_name']] = $values['config_value'];
     }
     
     return $array;
 }
-
-?>

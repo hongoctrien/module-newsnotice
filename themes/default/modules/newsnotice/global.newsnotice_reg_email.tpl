@@ -1,12 +1,8 @@
 <!-- BEGIN: main -->
-<div style="margin: 5px 5px 10px 5px">
-	<center><img src="{NV_BASE_SITEURL}themes/default/images/send_email_group_letter.png" width="70" /></center>
-	<form action="{ACTION}" method="post">
-		<p style="color: red; text-align: center; margin: 10px 0 10px 0">NHẬP EMAIL ĐỂ NHẬN ĐƯỢC NHỮNG THÔNG BÁO MỚI NHẤT TỪ CỔNG THÔNG TIN ĐÀO TẠO</P>
-		<input type="text" name="email" style="width: 238px" />
-		<input type="submit" value="Send" name="do" />
-	</form>
-</div>
+<p>{BLOCK_DATA.text}</P>
+<form class="form-inline" action="{ACTION}" method="post">
+	<input class="form-control" type="text" name="email" id="{MODULE_NAME}_email" style="width: 238px" /> <input class="btn btn-primary" type="submit" value="&gt;&gt;" name="do" />
+</form>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -17,13 +13,15 @@
 			if( email == '' )
 			{
 				alert('{LANG.error_email_empty}');
+				$('#{MODULE_NAME}_email').focus();
 				return false;
 			}
-			
+
 			if( ! nv_mailfilter.test( email ) )
 			{
 				alert('{LANG.error_email_type}');
-				return false;				
+				$('#{MODULE_NAME}_email').focus();
+				return false;
 			}
 
 			$.ajax({
@@ -34,6 +32,7 @@
 		        	if( a > 0 )
 		        	{
 		        		alert('{LANG.error_existed_email}');
+		        		$('#{MODULE_NAME}_email').focus();
 		        	}
 		        	else
 		        	{

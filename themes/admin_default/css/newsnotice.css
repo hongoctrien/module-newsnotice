@@ -1,2 +1,9 @@
-.error{color: red}
-#information, #img_loading{display: block; text-align: center; margin-top: 10px}
+.error {
+	color: red
+}
+
+#information, #img_loading {
+	display: block;
+	text-align: center;
+	margin-top: 10px
+}

@@ -1,24 +1,24 @@
 <?php
 
 /**
- * @Project NUKEVIET 3.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2012 VINADES.,JSC. All rights reserved
- * @Createdate 2-1-2010 15:23
- */
+ * @Project NUKEVIET 4.x
+* @Author mynukeviet (contact@mynukeviet.com)
+* @Copyright (C) 2014 mynukeviet. All rights reserved
+* @License GNU/GPL version 2 or any later version
+* @Createdate 2-10-2010 18:49
+*/
+if (! defined('NV_IS_MOD_NEWSNOTICE'))
+    die('Stop!!!');
 
-if( ! defined( 'NV_IS_MOD_NEWSNOTICE' ) ) die( 'Stop!!!' );
+$email = $nv_Request->get_string('email', 'get', '');
 
-$email = $nv_Request->get_string( 'email', 'get', '' );
+if (empty($email))
+    die();
 
-if( empty( $email ) ) die();
-	
-$sql = "SELECT `email` FROM `" . NV_PREFIXLANG . "_" . $module_data . "_emaillist` WHERE `email` = " . $db->dbescape_string( $email );
-$result = $db->sql_query( $sql );
-$num = $db->sql_numrows( $result );
+$sql = "SELECT email FROM " . NV_PREFIXLANG . "_" . $module_data . "_emaillist WHERE email = " . $db->quote($email);
+$result = $db->query($sql);
+$num = $result->rowCount();
 
-include ( NV_ROOTDIR . "/includes/header.php" );
+include NV_ROOTDIR . '/includes/header.php';
 echo $num;
-include ( NV_ROOTDIR . "/includes/footer.php" );
-
-?>
+include NV_ROOTDIR . '/includes/footer.php';

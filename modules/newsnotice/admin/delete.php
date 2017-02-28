@@ -1,28 +1,25 @@
 <?php
 
 /**
- * @Project NUKEVIET 3.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2012 VINADES.,JSC. All rights reserved
- * @Createdate 2-1-2010 15:23
- */
+ * @Project NUKEVIET 4.x
+* @Author mynukeviet (contact@mynukeviet.com)
+* @Copyright (C) 2014 mynukeviet. All rights reserved
+* @License GNU/GPL version 2 or any later version
+* @Createdate 2-10-2010 18:49
+*/
+if (! defined('NV_IS_FILE_ADMIN'))
+    die('Stop!!!');
 
-if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
+$id = $nv_Request->get_int('id', 'post', 0);
 
-$id = $nv_Request->get_int( 'id', 'post', 0 );
+if (empty($id))
+    die('NO_' . $id);
 
-if( empty( $id ) ) die( 'NO_' . $id );
-
-$sql = "DELETE FROM `" . NV_PREFIXLANG . "_" . $module_data . "_emaillist` WHERE `id` = " . $id;
-$db->sql_query( $sql );
-
-if( ! $db->sql_affectedrows() )
-{
-	die( 'NO_' . $id );
+$sql = "DELETE FROM " . NV_PREFIXLANG . "_" . $module_data . "_emaillist WHERE id = " . $id;
+if (! $db->query($sql)) {
+    die('NO_' . $id);
 }
 
-include ( NV_ROOTDIR . "/includes/header.php" );
+include NV_ROOTDIR . '/includes/header.php';
 echo 'OK_' . $id;
-include ( NV_ROOTDIR . "/includes/footer.php" );
-
-?>
+include NV_ROOTDIR . '/includes/footer.php';

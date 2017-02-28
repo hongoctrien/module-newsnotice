@@ -1,19 +1,19 @@
 <?php
 
 /**
- * @Project NUKEVIET 3.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2014 VINADES.,JSC. All rights reserved
- * @Createdate Wed, 19 Mar 2014 13:32:54 GMT
- */
+ * @Project NUKEVIET 4.x
+* @Author mynukeviet (contact@mynukeviet.com)
+* @Copyright (C) 2014 mynukeviet. All rights reserved
+* @License GNU/GPL version 2 or any later version
+* @Createdate 2-10-2010 18:49
+*/
+if (! defined('NV_IS_FILE_SITEINFO'))
+    die('Stop!!!');
 
-if ( ! defined( 'NV_IS_FILE_SITEINFO' ) ) die( 'Stop!!!' );
-
-
-$lang_siteinfo = nv_get_lang_module( $mod );
+$lang_siteinfo = nv_get_lang_module($mod);
 /*
 // Tong so bai viet 
-list( $number ) = $db->sql_fetchrow( $db->sql_query( "SELECT COUNT(*) as number FROM `" . NV_PREFIXLANG . "_" . $mod_data . "_rows` where `status`= 1 AND `publtime` < " . NV_CURRENTTIME . " AND (`exptime`=0 OR `exptime`>" . NV_CURRENTTIME . ")" ) );
+$number = $db->query( "SELECT COUNT(*) as number FROM " . NV_PREFIXLANG . "_" . $mod_data . "_rows where status= 1 AND publtime < " . NV_CURRENTTIME . " AND (exptime=0 OR exptime>" . NV_CURRENTTIME . ")" )->fetchColumn();
 if ( $number > 0 )
 {
     $siteinfo[] = array( 
@@ -21,4 +21,3 @@ if ( $number > 0 )
     );
 }
 */
-?>

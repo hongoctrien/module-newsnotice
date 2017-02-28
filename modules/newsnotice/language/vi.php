@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @Project NUKEVIET 3.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2014 VINADES.,JSC. All rights reserved
- * @Createdate Wed, 19 Mar 2014 13:32:54 GMT
- */
-
-if ( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
+ * @Project NUKEVIET 4.x
+* @Author mynukeviet (contact@mynukeviet.com)
+* @Copyright (C) 2014 mynukeviet. All rights reserved
+* @License GNU/GPL version 2 or any later version
+* @Createdate 2-10-2010 18:49
+*/
+if (! defined('NV_MAINFILE'))
+    die('Stop!!!');
 
 $lang_translator['author'] = "VINADES.,JSC (contact@vinades.vn)";
 $lang_translator['createdate'] = "19/03/2014, 13:32";
@@ -33,5 +34,3 @@ $lang_module['notice_deactived'] = "Email này đã được ngưng kích hoạt
 $lang_module['notice_cancel'] = "Bạn đã ngưng kích hoạt thành công. Hệ thống sẽ không thông báo bản tin mới đến bạn cho tới khi bạn kích hoạt lại nó.";
 $lang_module['sendmail_content_new_post'] = 'Xin chào <strong>%1$s</strong>!<br />Bạn đã đăng ký nhận bản tin tự động tại <a target="_blank" href="%3$s"><strong>%2$s</strong></a>. Dưới đây là danh sách các bài viết mới vừa được cập nhật.';
 $lang_module['sendmail_content_note'] = 'Đây là email tự động được gửi đi từ <a target="_blank" href="%2$s"><strong>%1$s</strong></a>. Vui lòng không trả lời thư này vì chúng tôi không nhận được thư hồi âm của các bạn. Nếu không muốn nhận bản tin trong thời gian tới, vui lòng click <a target="_blank" href="%3$s">vào đây</a>';
-
-?>

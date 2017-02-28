@@ -7,7 +7,8 @@
 * @License GNU/GPL version 2 or any later version
 * @Createdate 2-10-2010 18:49
 */
-if (! defined('NV_SYSTEM'))
+if (! defined('NV_ADMIN'))
     die('Stop!!!');
 
-define('NV_IS_MOD_NEWSNOTICE', true);
+$submenu['maillist'] = $lang_module['maillist'];
+$submenu['config'] = $lang_module['config'];
