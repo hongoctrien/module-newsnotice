@@ -12,30 +12,36 @@ if (! defined('NV_IS_FILE_ADMIN'))
 
 $page_title = $lang_module['maillist'];
 
-$xtpl = new XTemplate("maillist.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('GLANG', $lang_global);
-$xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
-$xtpl->assign('NV_NAME_VARIABLE', NV_NAME_VARIABLE);
-$xtpl->assign('NV_OP_VARIABLE', NV_OP_VARIABLE);
-$xtpl->assign('MODULE_NAME', $module_name);
-
 $nv_config_module = GetConfigValue();
 
 $page = $nv_Request->get_int('page', 'get', 0);
 $per_page = $nv_config_module['numperpage'];
+
+if ($nv_Request->isset_request('delete_list', 'post')) {
+    $listall = $nv_Request->get_title('listall', 'post', '');
+    $array_id = explode(',', $listall);
+
+    if (! empty($array_id)) {
+        foreach ($array_id as $id) {
+            nv_delete_email($id);
+        }
+        $nv_Cache->delMod($module_name);
+        die('OK');
+    }
+    die('NO');
+}
 
 // Search
 $where = $url = '';
 if ($nv_Request->isset_request('search', 'get')) {
     $email = $nv_Request->get_string('email', 'get', '');
     $status = $nv_Request->get_string('status', 'get', '');
-    
+
     if (! empty($email)) {
         $where .= " AND email like '%" . $email . "%'";
         $url .= "&email=" . $email;
     }
-    
+
     if ($status != '') {
         $where .= " AND status = " . $status . "";
         $url .= "status=" . $status;
@@ -58,9 +64,14 @@ $array_status = array(
     $lang_module['actived']
 );
 
+$xtpl = new XTemplate("maillist.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('GLANG', $lang_global);
+$xtpl->assign('MODULE_NAME', $module_name);
+$xtpl->assign('BASE_URL', $base_url);
+
 $i = 1;
 while ($row = $result->fetch()) {
-    $xtpl->assign('CLASS', $i % 2 == 0 ? 'class=\"second\"' : '');
     foreach ($array_status as $key => $val) {
         $xtpl->assign('STATUS', array(
             'key' => $key,
@@ -72,12 +83,23 @@ while ($row = $result->fetch()) {
     }
     
     $row['stt'] = $i;
-    $row['time_reg'] = ! $row['time_reg'] ? 'N/A' : nv_date('d/m/Y H:i', $row['time_reg']);
-    $row['time_active'] = ! $row['time_active'] ? 'N/A' : nv_date('d/m/Y H:i', $row['time_active']);
+    $row['time_reg'] = ! $row['time_reg'] ? 'N/A' : nv_date('H:i d/m/Y', $row['time_reg']);
+    $row['time_active'] = ! $row['time_active'] ? 'N/A' : nv_date('H:i d/m/Y', $row['time_active']);
     $xtpl->assign('ROW', $row);
     $xtpl->parse('main.maillist');
     
     $i ++;
+}
+
+$array_action = array(
+    'delete_list_id' => $lang_global['delete']
+);
+foreach ($array_action as $key => $value) {
+    $xtpl->assign('ACTION', array(
+        'key' => $key,
+        'value' => $value
+    ));
+    $xtpl->parse('main.action');
 }
 
 $generate_page = nv_generate_page($base_url, $all_page, $per_page, $page);

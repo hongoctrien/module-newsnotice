@@ -15,8 +15,7 @@ $id = $nv_Request->get_int('id', 'post', 0);
 if (empty($id))
     die('NO_' . $id);
 
-$sql = "DELETE FROM " . NV_PREFIXLANG . "_" . $module_data . "_emaillist WHERE id = " . $id;
-if (! $db->query($sql)) {
+if (nv_delete_email($id)) {
     die('NO_' . $id);
 }
 

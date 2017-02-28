@@ -17,7 +17,7 @@ if (! nv_function_exists('nv_function_reg_email')) {
         $html = '';
         $html .= '<tr>';
         $html .= '<td>' . $lang_block['text'] . '</td>';
-        $html .= '<td><input type="text" class="form-control" name="config_text" value="' . $data_block['text'] . '"/></td>';
+        $html .= '<td><input type="text" class="form-control w400" name="config_text" value="' . $data_block['text'] . '"/></td>';
         $html .= '</tr>';
         return $html;
     }
@@ -53,9 +53,6 @@ if (! nv_function_exists('nv_function_reg_email')) {
         
         $xtpl = new XTemplate('global.newsnotice_reg_email.tpl', NV_ROOTDIR . '/themes/' . $block_theme . '/modules/' . $module);
         $xtpl->assign('LANG', $lang_module);
-        $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
-        $xtpl->assign('NV_NAME_VARIABLE', NV_NAME_VARIABLE);
-        $xtpl->assign('NV_OP_VARIABLE', NV_OP_VARIABLE);
         $xtpl->assign('ACTION', NV_BASE_SITEURL . "index.php?" . NV_NAME_VARIABLE . "=" . $module);
         $xtpl->assign('MODULE_NAME', $module);
         $xtpl->assign('BLOCK_DATA', $block_config);

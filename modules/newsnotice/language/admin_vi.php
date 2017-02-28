@@ -19,10 +19,9 @@ $lang_translator['langtype'] = "lang_module";
 $lang_module['main'] = "Trang chính";
 $lang_module['config'] = "Cấu hình";
 $lang_module['maillist'] = "Danh sách email";
-
 $lang_module['email'] = "Email";
 $lang_module['time_reg'] = "Đăng ký";
-$lang_module['time_active'] = "Kích hoạt";
+$lang_module['time_active'] = "TG kích hoạt";
 $lang_module['status'] = "Trạng thái";
 $lang_module['actived'] = "Đã kích hoạt";
 $lang_module['noactive'] = "Chưa kích hoạt";
@@ -33,38 +32,16 @@ $lang_module['sended'] = "Đã gửi";
 $lang_module['time_sended'] = "Thời gian gửi";
 $lang_module['status_completed'] = "Đã gửi";
 $lang_module['status_stack'] = "Đang đợi";
-
-// Config
 $lang_module['system_active'] = "Hệ thống hoạt động";
 $lang_module['title_email'] = "Tiêu đề email";
 $lang_module['numperpage'] = "Email trên 1 trang";
-$lang_module['save'] = "Lưu";
-$lang_module['send'] = "Gửi";
-
-$lang_module['error_numperpage_type'] = "Số lượng email hiển thị trên một trang không hợp lệ";
+$lang_module['system'] = "Hệ thống";
+$lang_module['save'] = "Lưu lại";
+$lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+$lang_module['perform'] = 'Thực hiện';
 
 $lang_module['sendmail_title_status'] = "Trạng thái email nhận tin của bạn bị thay đổi";
 $lang_module['sendmail_content_status_deactive'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã bị đình chỉ hoạt động bởi người quản trị. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.';
 $lang_module['sendmail_content_status_active'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã được kích hoạt bởi người quản trị.';
 
-// Lang for function sendmail
-$lang_module['sendmail'] = 'Gửi mail';
-$lang_module['add'] = 'Thêm mới';
-$lang_module['edit'] = 'Sửa';
-$lang_module['delete'] = 'Xóa';
-$lang_module['number'] = 'STT';
-$lang_module['active'] = 'Trạng thái';
-$lang_module['title'] = 'Tiêu đề';
-$lang_module['content'] = 'Nội dung';
-$lang_module['adminid'] = 'Người gửi';
-$lang_module['sendtime'] = 'Thời gian gửi';
-
-// Lang for function sendmail
-$lang_module['search_title'] = 'Nhập từ khóa tìm kiếm';
-$lang_module['search_submit'] = 'Tìm kiếm';
-$lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
-$lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung';
-$lang_module['error_required_maillist'] = 'Lỗi: bạn cần nhập dữ liệu cho Danh sách email';
-
-// Lang for function sendmail-content
-$lang_module['sendmail-content'] = 'sendmail-content';
+$lang_module['error_numperpage_type'] = "Số lượng email hiển thị trên một trang không hợp lệ";
