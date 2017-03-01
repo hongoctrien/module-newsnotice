@@ -19,6 +19,7 @@ $lang_translator['langtype'] = "lang_module";
 $lang_module['main'] = "Trang chính";
 $lang_module['title_email'] = "Kích hoạt tài khoản nhận tin";
 $lang_module['email_content'] = 'Chào <strong>%1$s</strong>!<br />Bạn đã đăng ký nhận bản tin tự động từ <a target="_blank" href="%3$s">%2$s</a>.<br />Để hoàn thành việc đăng ký, vui lòng truy cập đường dẫn bên dưới để xác nhận.<br /><a href="%4$s">%4$s</a>';
+$lang_module['thank_mail'] = 'Thư chào mừng';
 
 $lang_module['error_email_empty'] = "Vui lòng nhập email cần đăng ký";
 $lang_module['error_email_type'] = "Email không hợp lệ";

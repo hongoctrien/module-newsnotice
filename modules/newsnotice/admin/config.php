@@ -18,10 +18,7 @@ if ($nv_Request->isset_request('save', 'post')) {
     $array_config['title_email'] = $nv_Request->get_string('title_email', 'post', '');
     $array_config['numperpage'] = $nv_Request->get_int('numperpage', 'post', 20);
     $array_config['active_required'] = $nv_Request->get_int('active_required', 'post', 0);
-
-    if (! is_integer($array_config['numperpage'])) {
-        $error = $lang_module['error_numperpage_type'];
-    }
+    $array_config['active_thank'] = $nv_Request->get_int('active_thank', 'post', 0);
 
     if (empty($error)) {
         $sth = $db->prepare("UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_config SET config_value = :config_value WHERE config_name = :config_name");
@@ -40,6 +37,7 @@ if ($nv_Request->isset_request('save', 'post')) {
 
 $array_config['ck_active'] = $array_config['active'] ? 'checked="checked"' : '';
 $array_config['ck_active_required'] = $array_config['active_required'] ? 'checked="checked"' : '';
+$array_config['ck_active_thank'] = $array_config['active_thank'] ? 'checked="checked"' : '';
 
 $xtpl = new XTemplate("config.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
 $xtpl->assign('LANG', $lang_module);

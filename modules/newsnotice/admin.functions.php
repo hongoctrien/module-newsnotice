@@ -19,14 +19,7 @@ $allow_func = array(
 );
 
 define('NV_IS_FILE_ADMIN', true);
-
-$array_config = array();
-$sql = "SELECT config_name, config_value FROM " . NV_PREFIXLANG . "_" . $module_data . "_config";
-$list = $nv_Cache->db($sql, '', $module_name);
-
-foreach ($list as $values) {
-    $array_config[$values['config_name']] = $values['config_value'];
-}
+require_once NV_ROOTDIR . '/modules/' . $module_file . '/global.functions.php';
 
 function nv_delete_email($id)
 {

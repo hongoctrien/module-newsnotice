@@ -27,6 +27,12 @@ $time_active = $new_status ? NV_CURRENTTIME : 0;
 
 $sql = "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_emaillist SET time_active = " . $time_active . ", status=" . $new_status . " WHERE id=" . $id;
 if ($db->query($sql) and ! empty($email)) {
+    
+    // Gửi thư phản hồi sau khi đăng ký thành công
+    if ($new_status and $array_config['active_thank']) {
+        nv_sendmail_thank($email);
+    }
+    
     $action = $new_status ? 'active' : 'deactive';
     $contents = sprintf($lang_module['sendmail_content_status_' . $action], $email, $global_config['site_name'], $global_config['site_url']);
     nv_sendmail(array(

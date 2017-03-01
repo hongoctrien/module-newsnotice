@@ -27,6 +27,8 @@ while (list ($lang) = $language_query->fetch(3)) {
         
         $_sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_emaillist CHANGE check_key check_key VARCHAR(50) NOT NULL DEFAULT '';";
         
+        $_sql[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_config (config_name, config_value) VALUES ('active_thank', '0');";
+        
         if (! empty($_sql)) {
             foreach ($_sql as $sql) {
                 try {

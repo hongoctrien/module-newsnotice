@@ -32,6 +32,11 @@ if ($nv_Request->isset_request('status, email', 'get')) {
             if ($db->query($sql)) {
                 if ($status) {
                     $notice = $lang_module['notice_success'];
+                    
+                    // Gửi thư phản hồi sau khi đăng ký thành công
+                    if($array_config['active_thank']){
+                        nv_sendmail_thank($email);
+                    }
                 } else {
                     $notice = sprintf($lang_module['notice_success_mail_active'], $email);
                     $url = $global_config['site_url'] . "/index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=main&status=done&email=" . $email . "&key=" . $key;
@@ -57,6 +62,10 @@ if ($nv_Request->isset_request('status, email', 'get')) {
                 $sql = "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_emaillist SET time_active = " . NV_CURRENTTIME . ", status = 1 WHERE email = " . $db->quote($email);
                 $db->query($sql);
                 $notice = $lang_module['notice_success_done_actived'];
+                // Gửi thư phản hồi sau khi đăng ký thành công
+                if($array_config['active_thank']){
+                    nv_sendmail_thank($email);
+                }
             } else {
                 $notice = $lang_module['notice_actived'];
             }

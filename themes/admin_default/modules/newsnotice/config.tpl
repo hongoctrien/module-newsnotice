@@ -32,6 +32,12 @@
 					<label><input name="active_required" type="checkbox" value="1" {DATA.ck_active_required} />{LANG.active_required_note}</label>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-sm-3 text-right"><strong>{LANG.active_thank}</strong></label>
+				<div class="col-sm-21">
+					<label><input name="active_thank" type="checkbox" value="1" {DATA.ck_active_thank} />{LANG.active_thank_note}</label>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="text-center">

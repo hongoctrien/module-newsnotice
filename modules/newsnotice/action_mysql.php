@@ -61,7 +61,8 @@ $array_config = array(
     'active' => 1,
     'title_email' => '',
     'numperpage' => 20,
-    'active_required' => 1
+    'active_required' => 1,
+    'active_thank' => 1
 );
 foreach ($array_config as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('" . $config_name . "', '" . $config_value . "')";

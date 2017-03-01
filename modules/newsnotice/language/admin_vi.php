@@ -41,9 +41,12 @@ $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực 
 $lang_module['perform'] = 'Thực hiện';
 $lang_module['active_required'] = 'Kích hoạt qua Email';
 $lang_module['active_required_note'] = 'Khách hàng phải kích hoạt qua email sau khi đăng ký';
+$lang_module['active_thank'] = 'Gửi thư cảm ơn';
+$lang_module['active_thank_note'] = 'Gửi thư phản hồi đến email đăng ký sau khi kích hoạt thành công';
 $lang_module['addemail'] = 'Thêm Email';
 $lang_module['addemail_note'] = 'Vui lòng nhập danh sách Email, mỗi email trên một dòng';
 $lang_module['addemail_success'] = 'Tổng số %d email đã được thêm';
+$lang_module['thank_mail'] = 'Thư chào mừng';
 
 $lang_module['sendmail_title_status'] = "Trạng thái email nhận tin của bạn bị thay đổi";
 $lang_module['sendmail_content_status_deactive'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã bị đình chỉ hoạt động bởi người quản trị. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.';
