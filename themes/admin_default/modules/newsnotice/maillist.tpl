@@ -32,7 +32,7 @@
 		<!-- END: action_top -->
 	</select>
 	<button class="btn btn-primary" onclick="nv_list_action( $('#action_top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
-	<button class="btn btn-primary" onclick="nv_add_email(); return false;">{LANG.addemail}</button>
+	<button class="btn btn-primary" onclick="nv_add_email('{LANG.addemail}'); return false;">{LANG.addemail}</button>
 </form>
 
 <form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">

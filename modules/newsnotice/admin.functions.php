@@ -14,7 +14,8 @@ $allow_func = array(
     'main',
     'maillist',
     'config',
-    'change_status'
+    'change_status',
+    'mailcontent'
 );
 
 define('NV_IS_FILE_ADMIN', true);

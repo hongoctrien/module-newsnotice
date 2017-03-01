@@ -42,9 +42,14 @@ $lang_module['perform'] = 'Thực hiện';
 $lang_module['active_required'] = 'Kích hoạt qua Email';
 $lang_module['active_required_note'] = 'Khách hàng phải kích hoạt qua email sau khi đăng ký';
 $lang_module['addemail'] = 'Thêm Email';
+$lang_module['addemail_note'] = 'Vui lòng nhập danh sách Email, mỗi email trên một dòng';
+$lang_module['addemail_success'] = 'Tổng số %d email đã được thêm';
 
 $lang_module['sendmail_title_status'] = "Trạng thái email nhận tin của bạn bị thay đổi";
 $lang_module['sendmail_content_status_deactive'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã bị đình chỉ hoạt động bởi người quản trị. Vui lòng liên hệ với quản trị viên để biết thêm thông tin.';
 $lang_module['sendmail_content_status_active'] = 'Xin chào <strong>%1$s</strong>!<br />Email nhận bản tin của bạn tại <a href="%2$s"><strong>%3$s</strong></a> đã được kích hoạt bởi người quản trị.';
 
 $lang_module['error_numperpage_type'] = "Số lượng email hiển thị trên một trang không hợp lệ";
+$lang_module['error_required_emaillist'] = "Vui lòng nhập ít nhất một Email để thêm";
+$lang_module['error_empty_emaillist'] = "Không có Email nào trong danh sách hợp lệ";
+$lang_module['error_vaild_email'] = "Email %s không hợp lệ";

@@ -2,11 +2,11 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.com)
-* @Copyright (C) 2014 mynukeviet. All rights reserved
-* @License GNU/GPL version 2 or any later version
-* @Createdate 2-10-2010 18:49
-*/
+ * @Author mynukeviet (contact@mynukeviet.com)
+ * @Copyright (C) 2014 mynukeviet. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 2-10-2010 18:49
+ */
 if (! defined('NV_IS_FILE_MODULES'))
     die('Stop!!!');
 
@@ -47,7 +47,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 	email varchar(200) NOT NULL,
 	time_reg int(11) NOT NULL DEFAULT '0',
 	time_active int(11) NOT NULL,
-	check_key varchar(50) NOT NULL DEFAULT '0',
+	check_key varchar(50) NOT NULL DEFAULT '',
 	status tinyint(4) NOT NULL DEFAULT '0',
 	PRIMARY KEY (id),
 	UNIQUE KEY email (email)) ENGINE=MyISAM";
@@ -63,7 +63,7 @@ $array_config = array(
     'numperpage' => 20,
     'active_required' => 1
 );
-foreach($array_config as $config_name => $config_value){
+foreach ($array_config as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config VALUES ('" . $config_name . "', '" . $config_value . "')";
 }
 
