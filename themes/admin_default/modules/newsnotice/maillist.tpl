@@ -25,6 +25,16 @@
 	</form>
 </div>
 
+<form class="form-inline m-bottom">
+	<select class="form-control" id="action_top">
+		<!-- BEGIN: action_top -->
+		<option value="{ACTION.key}">{ACTION.value}</option>
+		<!-- END: action_top -->
+	</select>
+	<button class="btn btn-primary" onclick="nv_list_action( $('#action_top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
+	<button class="btn btn-primary" onclick="nv_add_email(); return false;">{LANG.addemail}</button>
+</form>
+
 <form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<table class="table table-striped table-bordered table-hover">
 		<colgroup>
@@ -60,13 +70,13 @@
 	</table>
 </form>
 
-<form class="form-inline m-bottom pull-left">
-	<select class="form-control" id="action">
-		<!-- BEGIN: action -->
+<form class="form-inline m-bottom">
+	<select class="form-control" id="action_bottom">
+		<!-- BEGIN: action_bottom -->
 		<option value="{ACTION.key}">{ACTION.value}</option>
-		<!-- END: action -->
+		<!-- END: action_bottom -->
 	</select>
-	<button class="btn btn-primary" onclick="nv_list_action( $('#action').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
+	<button class="btn btn-primary" onclick="nv_list_action( $('#action_bottom').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
 </form>
 
 <!-- BEGIN: generate_page -->

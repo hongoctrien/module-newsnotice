@@ -2,11 +2,11 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.com)
-* @Copyright (C) 2014 mynukeviet. All rights reserved
-* @License GNU/GPL version 2 or any later version
-* @Createdate 2-10-2010 18:49
-*/
+ * @Author mynukeviet (contact@mynukeviet.com)
+ * @Copyright (C) 2014 mynukeviet. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 2-10-2010 18:49
+ */
 if (! defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
@@ -14,10 +14,23 @@ $page_title = $lang_module['maillist'];
 $page = $nv_Request->get_int('page', 'get', 0);
 $per_page = $array_config['numperpage'];
 
-if ($nv_Request->isset_request('delete_list', 'post')) {
+if ($nv_Request->isset_request('delete', 'post')) {
+    $id = $nv_Request->get_int('id', 'post', 0);
+    
+    if (empty($id))
+        die('NO_' . $id);
+    
+    if (! nv_delete_email($id)) {
+        die('NO_' . $id);
+    }
+    
+    include NV_ROOTDIR . '/includes/header.php';
+    echo 'OK_' . $id;
+    include NV_ROOTDIR . '/includes/footer.php';
+} elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-
+    
     if (! empty($array_id)) {
         foreach ($array_id as $id) {
             nv_delete_email($id);
@@ -33,12 +46,12 @@ $where = $url = '';
 if ($nv_Request->isset_request('search', 'get')) {
     $email = $nv_Request->get_string('email', 'get', '');
     $status = $nv_Request->get_string('status', 'get', '');
-
+    
     if (! empty($email)) {
         $where .= " AND email like '%" . $email . "%'";
         $url .= "&email=" . $email;
     }
-
+    
     if ($status != '') {
         $where .= " AND status = " . $status . "";
         $url .= "status=" . $status;
@@ -96,7 +109,8 @@ foreach ($array_action as $key => $value) {
         'key' => $key,
         'value' => $value
     ));
-    $xtpl->parse('main.action');
+    $xtpl->parse('main.action_top');
+    $xtpl->parse('main.action_bottom');
 }
 
 $generate_page = nv_generate_page($base_url, $all_page, $per_page, $page);

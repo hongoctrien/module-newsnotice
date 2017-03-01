@@ -2,19 +2,31 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.com)
-* @Copyright (C) 2014 mynukeviet. All rights reserved
-* @License GNU/GPL version 2 or any later version
-* @Createdate 2-10-2010 18:49
-*/
+ * @Author mynukeviet (contact@mynukeviet.com)
+ * @Copyright (C) 2014 mynukeviet. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 2-10-2010 18:49
+ */
 if (! defined('NV_IS_FILE_ADMIN'))
     die('Stop!!!');
 
 $page_title = $lang_module['main'];
 
-$xtpl = new XTemplate("main.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('GLANG', $lang_global);
+if ($nv_Request->isset_request('delete', 'post')) {
+    $id = $nv_Request->get_int('id', 'post', 0);
+    
+    if (empty($id))
+        die('NO_' . $id);
+    
+    $sql = "DELETE FROM " . NV_PREFIXLANG . "_" . $module_data . " WHERE id = " . $id;
+    if (! $db->query($sql)) {
+        die('NO_' . $id);
+    }
+    
+    include NV_ROOTDIR . '/includes/header.php';
+    echo 'OK_' . $id;
+    include NV_ROOTDIR . '/includes/footer.php';
+}
 
 $base_url = NV_BASE_ADMINURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&" . NV_NAME_VARIABLE . "=" . $module_name;
 $page = $nv_Request->get_int('page', 'get', 1);
@@ -34,6 +46,10 @@ while (list ($catid_i, $alias_i) = $result_cat->fetch(3)) {
 
 $sql = "SELECT * FROM " . NV_PREFIXLANG . "_" . $module_data . " ORDER BY id DESC LIMIT " . $per_page . " OFFSET " . ($page - 1) * $per_page;
 $result = $db->query($sql);
+
+$xtpl = new XTemplate("main.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('GLANG', $lang_global);
 
 while ($row = $result->fetch()) {
     $listid = explode(",", $row['listid']);
