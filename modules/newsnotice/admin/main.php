@@ -53,13 +53,13 @@ $xtpl->assign('GLANG', $lang_global);
 
 while ($row = $result->fetch()) {
     $listid = explode(",", $row['listid']);
+    $listid = array_diff($listid, array(''));
     $listsended = explode(",", $row['listsended']);
+    $listsended = array_diff($listsended, array(''));
     
     $i = 0;
     foreach ($listid as $id) {
-        $list_result = $db->query("SELECT id, title, alias, catid FROM " . NV_PREFIXLANG . "_news_rows WHERE status = 1 AND id = " . $id);
-        $post = $list_result->fetch();
-        
+        $post = $db->query("SELECT id, title, alias, catid FROM " . NV_PREFIXLANG . "_news_rows WHERE status = 1 AND id = " . $id)->fetch();
         if ($post) {
             $i ++;
             $link = NV_MY_DOMAIN . $global_array_cat_news[$post['catid']] . "/" . $post['alias'] . "-" . $post['id'];

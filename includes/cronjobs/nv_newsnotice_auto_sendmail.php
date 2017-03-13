@@ -42,16 +42,15 @@ function cron_newsnotice_send_mail($module, $tablenews)
         $result = $db->query($sql);
         $numrows = $result->rowCount();
         
-        if ($numrows > 0) // Neu trong khoang thoi gian $minspace co bai viet moi thi ....
-{
+        if ($numrows > 0) {
             $listid = array();
             while ($row = $result->fetch()) {
                 $listid[] = $row['id'];
             }
             
-            $lid = implode(",", $listid);
+            $listid = implode(",", $listid);
             
-            $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module . "( id, listid, time_stacked, totalsended, status ) VALUES ( NULL, " . $db->quote($lid) . ", " . NV_CURRENTTIME . ", 0, 0)";
+            $sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module . "( id, listid, time_stacked, totalsended, status ) VALUES ( NULL, " . $db->quote($listid) . ", " . NV_CURRENTTIME . ", 0, 0)";
             $id_insert = $db->insert_id($sql);
             
             if ($id_insert == 0) {
@@ -113,10 +112,12 @@ function cron_newsnotice_start_send_mail($module, $tablenews)
                         $content .= "<em>" . sprintf($lang_module['sendmail_content_note'], $global_config['site_name'], $global_config['site_url'], $cancellink) . "</em>";
                         $content .= '</div>';
                         
-                        if (nv_sendmail(array(
+                        $from = array(
                             $global_config['site_name'],
                             $global_config['site_email']
-                        ), $mail['email'], $nv_module_config['title_email'], $content)) {
+                        );
+                        
+                        if (nv_sendmail($from, $mail['email'], $nv_module_config['title_email'], $content)) {
                             $listidmail[] = $mail['id'];
                         }
                         $count ++;
@@ -139,6 +140,9 @@ function GetNews($listid, $tablenews)
     $newsmodule = array_map("trim", $newsmodule);
     
     $listid = explode(",", $listid);
+    $listid = array_diff($listid, array(
+        ''
+    ));
     
     $global_array_cat_news = array();
     $sql = "SELECT catid, alias FROM " . NV_PREFIXLANG . "_" . $newsmodule[2] . "_cat ORDER BY weight ASC";
