@@ -45,8 +45,8 @@ if (! nv_function_exists('nv_function_reg_email')) {
         }
         
         $lang_temp = $lang_module;
-        if (file_exists(NV_ROOTDIR . "/modules/" . $module . "/language/" . $global_config['site_lang'] . ".php")) {
-            require_once NV_ROOTDIR . "/modules/" . $module . "/language/" . $global_config['site_lang'] . ".php";
+        if (file_exists(NV_ROOTDIR . "/modules/" . $module . "/language/" . NV_LANG_INTERFACE . ".php")) {
+            require_once NV_ROOTDIR . "/modules/" . $module . "/language/" . NV_LANG_INTERFACE . ".php";
         }
         $lang_module = $lang_module + $lang_temp;
         unset($lang_temp);
